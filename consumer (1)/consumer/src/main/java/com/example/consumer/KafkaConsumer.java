@@ -1,5 +1,6 @@
 package com.example.consumer;
 
+import com.example.consumer.rider.RiderLocation;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +12,8 @@ public class KafkaConsumer {
         System.out.println("Received Message 1: "+message);
     }
 
-    @KafkaListener(topics = "my-new-topics-2",groupId = "my-new-group")
-    public void listen2(String message){
-        System.out.println("Received Message: "+message);
+    @KafkaListener(topics = "my-new-topics-2",groupId = "my-new-group-rider")
+    public void listenRiderLocation(RiderLocation location){
+        System.out.println("Received location: "+location.getRiderID()+" : "+location.getLatitude()+": "+location.getLongitude());
     }
 }
