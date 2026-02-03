@@ -1,5 +1,6 @@
 package com.demo.producer;
 
+import com.demo.producer.rider.RiderLocation;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,16 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class KafkaProducer {
 
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate<String,RiderLocation > kafkaTemplate;
 
-    public KafkaProducer(KafkaTemplate kafkaTemplate) {
+    public KafkaProducer(KafkaTemplate<String,RiderLocation> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
     @PostMapping("/send")
     public String sendMessage(@RequestParam String message){
-    kafkaTemplate.send("my-new-topics-2",message);
-    return "Message send: "+message;
+        RiderLocation location =
+                new RiderLocation("rider123", 28.61, 77.23);
+        kafkaTemplate.send("my-new-topics-2",location);
+     return "Message send: "+location.getRiderID();
     }
 
 }
