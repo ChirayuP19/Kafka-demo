@@ -15,4 +15,10 @@ public class KafkaConsumerNew{
         return location-> System.out.println("Received: "+location.getRiderID()+": "+location.getLatitude()+", "+location.getLongitude());
     }
 
+    @Bean
+    public Consumer<String> processRiderStatus(){
+        return status-> System.out.println("Received: "+status);
+    }
+
+
 }

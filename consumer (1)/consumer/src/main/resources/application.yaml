@@ -15,11 +15,15 @@ spring:
 #        spring.json.value.default.type: com.example.consumer.rider.RiderLocation
 #        spring.json.use.type.headers: false
   cloud:
+    function:
+      definition: processRiderLocation;processRiderStatus
     stream:
       function:
-        definition: processRiderLocation
+        definition: processRiderLocation;processRiderStatus
       bindings:
         processRiderLocation-in-0:
+          destination: my-topic
+        processRiderStatus-in-0:
           destination: my-topic-new
       kafka:
         binder:
